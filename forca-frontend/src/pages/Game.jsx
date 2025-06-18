@@ -5,17 +5,24 @@ import Header from '../components/Header';
 
 export default function Game() {
   const [word, setWord] = useState('');
+  const [wordDescription, setWordDescription] = useState('');
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [remainingAttempts, setRemainingAttempts] = useState(6);
   const [gameStatus, setGameStatus] = useState('waiting'); // 'waiting' | 'playing' | 'won' | 'lost'
   const [playerName, setPlayerName] = useState('');
 
-  // Função para escolher uma palavra aleatória (pode depois fazer vir do backend se quiser)
-  const words = ['react', 'javascript', 'frontend', 'developer', 'programming'];
+  const words = [
+    { word: 'react', description: 'Uma biblioteca JavaScript para construir interfaces de usuário' },
+    { word: 'javascript', description: 'Linguagem de programação popular para web' },
+    { word: 'frontend', description: 'A parte da aplicação web que o usuário interage' },
+    { word: 'developer', description: 'Pessoa que desenvolve software' },
+    { word: 'programming', description: 'O processo de escrever código para criar software' }
+  ];
 
   const startGame = () => {
-    const randomWord = words[Math.floor(Math.random() * words.length)];
-    setWord(randomWord);
+    const randomEntry = words[Math.floor(Math.random() * words.length)];
+    setWord(randomEntry.word);
+    setWordDescription(randomEntry.description);
     setGuessedLetters([]);
     setRemainingAttempts(6);
     setGameStatus('playing');
@@ -41,7 +48,7 @@ export default function Game() {
 
     if (isWinner) {
       setGameStatus('won');
-      saveScore(guessedLetters.length);  // Pode ajustar a lógica de score como quiser
+      saveScore(guessedLetters.length); // Ajuste essa lógica se quiser outro critério de score
     } else if (isLoser) {
       setGameStatus('lost');
       saveScore(guessedLetters.length);
@@ -49,7 +56,7 @@ export default function Game() {
   }, [guessedLetters, remainingAttempts, word, gameStatus]);
 
   const saveScore = (score) => {
-    if (!playerName.trim()) return; // Só salva se o jogador digitou o nome
+    if (!playerName.trim()) return;
 
     fetch('http://localhost:3000/ranking', {
       method: 'POST',
@@ -97,7 +104,7 @@ export default function Game() {
       {gameStatus === 'playing' && (
         <div>
           <WordDisplay word={word} guessedLetters={guessedLetters} />
-          <Keyboard guessedLetters={guessedLetters} handleLetterClick={handleLetterClick} />
+          <Keyboard guessedLetters={guessedLetters} onLetterClick={handleLetterClick} />
           <p>Tentativas restantes: {remainingAttempts}</p>
         </div>
       )}
@@ -106,6 +113,7 @@ export default function Game() {
         <div>
           <h2>🎉 Parabéns, você venceu!</h2>
           <p>A palavra era: {word}</p>
+          <p>Descrição: {wordDescription}</p>
           <button onClick={resetGame}>Jogar novamente</button>
         </div>
       )}
@@ -114,6 +122,7 @@ export default function Game() {
         <div>
           <h2>❌ Você perdeu!</h2>
           <p>A palavra era: {word}</p>
+          <p>Descrição: {wordDescription}</p>
           <button onClick={resetGame}>Tentar novamente</button>
         </div>
       )}
