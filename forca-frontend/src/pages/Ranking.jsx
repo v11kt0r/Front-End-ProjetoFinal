@@ -7,7 +7,7 @@ export default function Ranking() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5173/ranking') // Ajuste a URL se usar outro backend
+    fetch('http://localhost:3000/ranking') // Ajuste a URL se usar outro backend
       .then(response => {
         if (!response.ok) {
           throw new Error('Erro ao carregar o ranking');

@@ -1,0 +1,14 @@
+{
+  "ranking": [
+    {
+      "id": 1,
+      "name": "Jogador1",
+      "score": 10
+    },
+    {
+      "id": 2,
+      "name": "Jogador2",
+      "score": 7
+    }
+  ]
+}
