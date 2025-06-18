@@ -6,8 +6,9 @@ export default function Ranking() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Buscar ranking (GET)
   useEffect(() => {
-    fetch('http://localhost:3000/ranking') // Ajuste a URL se usar outro backend
+    fetch('http://localhost:3000/ranking')
       .then(response => {
         if (!response.ok) {
           throw new Error('Erro ao carregar o ranking');
@@ -15,7 +16,6 @@ export default function Ranking() {
         return response.json();
       })
       .then(data => {
-        // Ordena o ranking do maior para o menor score
         const sortedData = data.sort((a, b) => b.score - a.score);
         setRankingData(sortedData);
         setLoading(false);
@@ -26,6 +26,55 @@ export default function Ranking() {
         setLoading(false);
       });
   }, []);
+
+  // Exportar como JSON
+  const exportRanking = () => {
+    const dataStr = JSON.stringify(rankingData, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'ranking.json';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // Importar de arquivo .json
+  const importRanking = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const importedData = JSON.parse(e.target.result);
+
+        importedData.forEach(player => {
+          fetch('http://localhost:3000/ranking', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(player)
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Erro ao adicionar jogador importado');
+              }
+            })
+            .catch(error => console.error('Erro ao importar jogador:', error));
+        });
+
+        alert('Importação concluída com sucesso!');
+      } catch (error) {
+        console.error('Erro ao ler o arquivo JSON:', error);
+        alert('Formato de arquivo inválido.');
+      }
+    };
+
+    reader.readAsText(file);
+  };
 
   if (loading) return <p>Carregando ranking...</p>;
   if (error) return <p>Erro: {error}</p>;
@@ -41,6 +90,12 @@ export default function Ranking() {
           </li>
         ))}
       </ul>
+
+      <div style={{ marginTop: '20px' }}>
+        <button onClick={exportRanking}>Exportar Ranking (.json)</button>
+        <br /><br />
+        <input type="file" accept=".json" onChange={importRanking} />
+      </div>
     </div>
   );
 }
