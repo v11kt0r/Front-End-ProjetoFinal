@@ -1,4 +1,4 @@
-export default function Keyboard({ onLetterClick, guessedLetters }) {
+export default function Keyboard({ guessedLetters, handleLetterClick }) {
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
   return (
@@ -6,7 +6,7 @@ export default function Keyboard({ onLetterClick, guessedLetters }) {
       {letters.map((letter) => (
         <button
           key={letter}
-          onClick={() => onLetterClick(letter)}
+         onClick={() => handleLetterClick(letter)}
           disabled={guessedLetters.includes(letter)}
           style={{ margin: '5px' }}
         >
