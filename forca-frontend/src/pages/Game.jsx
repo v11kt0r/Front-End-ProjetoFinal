@@ -3,6 +3,8 @@ import WordDisplay from '../components/WordDisplay';
 import Keyboard from '../components/Keyboard';
 import Header from '../components/Header';
 
+
+
 export default function Game() {
   const [word, setWord] = useState('');
   const [wordDescription, setWordDescription] = useState('');

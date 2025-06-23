@@ -1,0 +1,28 @@
+.game-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.word-display {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.keyboard button {
+  margin: 5px;
+  padding: 10px 15px;
+  font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+  .keyboard button {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  .word-display {
+    font-size: 1.5rem;
+  }
+}
