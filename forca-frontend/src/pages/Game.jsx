@@ -3,6 +3,8 @@ import WordDisplay from '../components/WordDisplay';
 import Keyboard from '../components/Keyboard';
 import Header from '../components/Header';
 import '../assets/Game.css';
+import '../assets/Keyboard.css';
+
 
 
 export default function Game() {

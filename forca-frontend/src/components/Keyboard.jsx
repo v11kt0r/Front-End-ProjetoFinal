@@ -2,7 +2,7 @@ export default function Keyboard({ guessedLetters, onLetterClick }) {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
   return (
-    <div>
+    <div className="keyboard">
       {alphabet.map((letter) => (
         <button
           key={letter}
