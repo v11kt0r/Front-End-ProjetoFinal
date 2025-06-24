@@ -1,0 +1,144 @@
+/* ===== Reset Básico ===== */
+body, h1, h2, h3, p, ul, li, input, button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* ===== Estilo Global ===== */
+body {
+  background: linear-gradient(135deg, #1e1e1e, #333);
+  color: #f0f0f0;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  max-width: 90%;
+  width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+/* ===== Títulos ===== */
+h1, h2 {
+  color: #00c896;
+  margin-bottom: 20px;
+}
+
+/* ===== Botões ===== */
+button {
+  background-color: #00c896;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 8px 4px;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background-color: #00b386;
+}
+
+/* ===== Inputs ===== */
+input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin: 5px;
+  width: 80%;
+  max-width: 300px;
+}
+
+/* ===== HOME ===== */
+.home-links a {
+  display: inline-block;
+  background-color: #00d09c;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  margin: 8px 5px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.home-links a:hover {
+  background-color: #00a87b;
+}
+
+
+/* ===== WordDisplay (Letras da palavra) ===== */
+.letter {
+  display: inline-block;
+  margin: 0 5px;
+  font-size: 24px;
+  border-bottom: 2px solid #ccc;
+  min-width: 20px;
+  transition: color 0.3s ease;
+}
+
+.letter.revealed {
+  color: #00c896;
+  border-bottom: 2px solid #00c896;
+}
+
+/* ===== Lista de Itens (Ranking / Palavras) ===== */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+/* ===== Responsividade ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  button {
+    width: 90%;
+    padding: 10px;
+  }
+
+  input {
+    width: 90%;
+  }
+
+  .letter {
+    font-size: 20px;
+    margin: 0 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1, h2 {
+    font-size: 16px;
+  }
+
+  button {
+    font-size: 14px;
+  }
+
+  .letter {
+    font-size: 18px;
+  }
+}
