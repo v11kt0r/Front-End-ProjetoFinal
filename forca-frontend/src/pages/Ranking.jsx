@@ -6,7 +6,6 @@ export default function Ranking() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Buscar ranking (GET)
   useEffect(() => {
     fetch('http://localhost:3000/ranking')
       .then(response => {
@@ -27,7 +26,8 @@ export default function Ranking() {
       });
   }, []);
 
-  // Exportar como JSON
+
+
   const exportRanking = () => {
     const dataStr = JSON.stringify(rankingData, null, 2);
     const blob = new Blob([dataStr], { type: 'application/json' });
@@ -40,7 +40,6 @@ export default function Ranking() {
     URL.revokeObjectURL(url);
   };
 
-  // Importar de arquivo .json
   const importRanking = (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -95,6 +94,10 @@ export default function Ranking() {
         <button onClick={exportRanking}>Exportar Ranking (.json)</button>
         <br /><br />
         <input type="file" accept=".json" onChange={importRanking} />
+      </div>
+
+      <div style={{ marginTop: '30px' }}>
+        <button onClick={() => window.history.back()}>Voltar</button>
       </div>
     </div>
   );

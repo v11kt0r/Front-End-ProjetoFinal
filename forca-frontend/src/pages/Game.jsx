@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import WordDisplay from '../components/WordDisplay';
 import Keyboard from '../components/Keyboard';
 import Header from '../components/Header';
 import '../assets/Game.css';
 import '../assets/Keyboard.css';
-
-
 
 export default function Game() {
   const [word, setWord] = useState('');
@@ -14,6 +13,8 @@ export default function Game() {
   const [remainingAttempts, setRemainingAttempts] = useState(6);
   const [gameStatus, setGameStatus] = useState('waiting'); // 'waiting' | 'playing' | 'won' | 'lost'
   const [playerName, setPlayerName] = useState('');
+
+  const navigate = useNavigate();
 
   const words = [
     { word: 'react', description: 'Uma biblioteca JavaScript para construir interfaces de usuário' },
@@ -52,7 +53,7 @@ export default function Game() {
 
     if (isWinner) {
       setGameStatus('won');
-      saveScore(guessedLetters.length); // Ajuste essa lógica se quiser outro critério de score
+      saveScore(guessedLetters.length); 
     } else if (isLoser) {
       setGameStatus('lost');
       saveScore(guessedLetters.length);
@@ -86,9 +87,14 @@ export default function Game() {
     setGameStatus('waiting');
   };
 
+  const goBack = () => {
+    navigate(-1); // Volta para a página anterior no histórico
+  };
+
   return (
     <div>
       <Header />
+
 
       {gameStatus === 'waiting' && (
         <div>
@@ -130,6 +136,9 @@ export default function Game() {
           <button onClick={resetGame}>Tentar novamente</button>
         </div>
       )}
+      
+      <button onClick={goBack} className="btn-voltar">Voltar</button>
+
     </div>
   );
 }

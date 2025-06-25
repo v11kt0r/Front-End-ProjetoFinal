@@ -11,7 +11,6 @@ export default function WordAdmin() {
 
   const apiUrl = 'http://localhost:3000/words';
 
-  // Carregar lista de palavras
   useEffect(() => {
     fetch(apiUrl)
       .then(response => response.json())
@@ -19,7 +18,6 @@ export default function WordAdmin() {
       .catch(error => console.error('Erro ao buscar palavras:', error));
   }, []);
 
-  // Criar nova palavra
   const handleAddWord = () => {
     if (!newWord.trim() || !newDescription.trim()) return;
 
@@ -39,21 +37,18 @@ export default function WordAdmin() {
       .catch(error => console.error('Erro ao adicionar palavra:', error));
   };
 
-  // Deletar uma palavra
   const handleDeleteWord = (id) => {
     fetch(`${apiUrl}/${id}`, { method: 'DELETE' })
       .then(() => setWords(words.filter(word => word.id !== id)))
       .catch(error => console.error('Erro ao deletar palavra:', error));
   };
 
-  // Iniciar edição
   const startEditing = (word) => {
     setEditingWord(word);
     setEditedWord(word.word);
     setEditedDescription(word.description);
   };
 
-  // Confirmar edição
   const handleUpdateWord = () => {
     if (!editedWord.trim() || !editedDescription.trim()) return;
 
@@ -75,7 +70,6 @@ export default function WordAdmin() {
       <Header />
       <h1>📚 Administração de Palavras</h1>
 
-      {/* Adicionar Nova Palavra */}
       <div>
         <h2>Adicionar Nova Palavra</h2>
         <input
@@ -95,7 +89,6 @@ export default function WordAdmin() {
 
       <hr />
 
-      {/* Lista de Palavras */}
       <div>
         <h2>Lista de Palavras</h2>
         {words.length === 0 ? (
@@ -130,6 +123,10 @@ export default function WordAdmin() {
             ))}
           </ul>
         )}
+      </div>
+
+      <div style={{ marginTop: '30px' }}>
+        <button onClick={() => window.history.back()}>Voltar</button>
       </div>
     </div>
   );
